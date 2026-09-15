@@ -1,0 +1,78 @@
+table fact_sales
+	lineageTag: 208f89e0-27c6-41bb-adad-c3aab79cb89a
+	sourceLineageTag: [dbo].[fact_sales]
+
+	column order_id
+		dataType: string
+		lineageTag: 7e78aac0-0f0e-4510-8b34-40d64b44a5f1
+		sourceLineageTag: order_id
+		summarizeBy: none
+		sourceColumn: order_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column customer_id
+		dataType: string
+		lineageTag: 6048b44d-3c2a-4796-8087-494ec2244ab7
+		sourceLineageTag: customer_id
+		summarizeBy: none
+		sourceColumn: customer_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column product_id
+		dataType: string
+		isHidden
+		lineageTag: 16ddb13d-3081-4f19-9860-20af09ee93d5
+		sourceLineageTag: product_id
+		summarizeBy: none
+		sourceColumn: product_id
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column quantity
+		dataType: int64
+		formatString: 0
+		lineageTag: 5885973f-d54e-4a8e-91db-5cc0c6896b60
+		sourceLineageTag: quantity
+		summarizeBy: sum
+		sourceColumn: quantity
+
+		annotation SummarizationSetBy = Automatic
+
+	column order_date
+		dataType: string
+		lineageTag: 3b8a6268-2d6f-43b0-9287-533498ac06c5
+		sourceLineageTag: order_date
+		summarizeBy: none
+		sourceColumn: order_date
+
+		annotation SummarizationSetBy = Automatic
+
+	column status
+		dataType: string
+		lineageTag: 37a4192f-f829-4c03-8b7f-6f7107849a11
+		sourceLineageTag: status
+		summarizeBy: none
+		sourceColumn: status
+
+		annotation SummarizationSetBy = Automatic
+
+	column address
+		dataType: string
+		lineageTag: 1878bcc4-59e9-439a-9f91-ed655bec82a5
+		sourceLineageTag: address
+		summarizeBy: none
+		sourceColumn: address
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fact_sales = entity
+		mode: directLake
+		source
+			entityName: fact_sales
+			schemaName: dbo
+			expressionSource: 'DirectLake - lh_gold'
+

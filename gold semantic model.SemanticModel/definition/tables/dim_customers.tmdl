@@ -1,0 +1,110 @@
+table dim_customers
+	lineageTag: 7385e544-57a1-4a00-8b09-df1dac585f00
+	sourceLineageTag: [dbo].[dim_customers]
+
+	measure 'Total Items Sold' = SUM(fact_sales[quantity])
+		formatString: 0
+		lineageTag: b3ee118e-42a9-489e-8fc5-bc8d50e1567d
+
+		changedProperty = Name
+
+	measure 'Active Customers' = DISTINCTCOUNT(dim_customers[customer_id])
+		formatString: 0
+		lineageTag: a766b84b-0e67-44b0-8f94-e8d9f094fef4
+
+		changedProperty = Name
+
+	measure 'Total Orders' = COUNTA(fact_sales[order_id])
+		formatString: 0
+		lineageTag: a18bf5ec-559e-40f3-945c-e63ec0fb02e7
+
+		changedProperty = Name
+
+	measure 'Avg Quantity per Order' = DIVIDE([Total Items Sold], [Total Orders])
+		lineageTag: 1563af90-1943-45ef-9dca-e4bee20db670
+
+		changedProperty = Name
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column customer_id
+		dataType: string
+		lineageTag: afa0fef0-1480-4ae3-8ba7-cc231dc7b37b
+		sourceLineageTag: customer_id
+		summarizeBy: none
+		sourceColumn: customer_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column name
+		dataType: string
+		lineageTag: 599ec32f-8b39-4223-b87b-98e5ba65eefa
+		sourceLineageTag: name
+		summarizeBy: none
+		sourceColumn: name
+
+		annotation SummarizationSetBy = Automatic
+
+	column email
+		dataType: string
+		lineageTag: 0c6c89bb-5573-44e6-ac63-453f526bb059
+		sourceLineageTag: email
+		summarizeBy: none
+		sourceColumn: email
+
+		annotation SummarizationSetBy = Automatic
+
+	column address
+		dataType: string
+		lineageTag: 61b48692-5478-4a3f-834b-0ea5f16a8352
+		sourceLineageTag: address
+		summarizeBy: none
+		sourceColumn: address
+
+		annotation SummarizationSetBy = Automatic
+
+	column registration_date
+		dataType: string
+		lineageTag: b1d61c5b-175f-4b0c-b4f2-7a84b07f1de3
+		sourceLineageTag: registration_date
+		summarizeBy: none
+		sourceColumn: registration_date
+
+		annotation SummarizationSetBy = Automatic
+
+	column total_orders
+		dataType: int64
+		formatString: 0
+		lineageTag: 086b0bdc-3ab2-41af-ad90-5e6cd7248857
+		sourceLineageTag: total_orders
+		summarizeBy: none
+		sourceColumn: total_orders
+
+		annotation SummarizationSetBy = Automatic
+
+	column total_items_purchased
+		dataType: int64
+		formatString: 0
+		lineageTag: f832b53f-52f0-41d1-8404-e79ec524224f
+		sourceLineageTag: total_items_purchased
+		summarizeBy: none
+		sourceColumn: total_items_purchased
+
+		annotation SummarizationSetBy = Automatic
+
+	column last_order_date
+		dataType: string
+		lineageTag: 918f6d48-5bf6-4630-a57c-631310068bdf
+		sourceLineageTag: last_order_date
+		summarizeBy: none
+		sourceColumn: last_order_date
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_customers = entity
+		mode: directLake
+		source
+			entityName: dim_customers
+			schemaName: dbo
+			expressionSource: 'DirectLake - lh_gold'
+

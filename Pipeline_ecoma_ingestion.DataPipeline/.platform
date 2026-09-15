@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "DataPipeline",
+    "displayName": "Pipeline_ecoma_ingestion"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "db579b1d-5d3f-8496-4ca6-730ddc9d325e"
+  }
+}
