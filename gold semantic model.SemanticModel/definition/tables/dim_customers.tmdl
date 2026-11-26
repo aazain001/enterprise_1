@@ -27,6 +27,11 @@ table dim_customers
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
+	measure Measure
+		lineageTag: c8b271a9-4e56-4ad9-99b6-ba497a9706d4
+
+		annotation 43dbc3e8-3a1c-4b6f-9923-b49ff7d6691c = True
+
 	column customer_id
 		dataType: string
 		lineageTag: afa0fef0-1480-4ae3-8ba7-cc231dc7b37b

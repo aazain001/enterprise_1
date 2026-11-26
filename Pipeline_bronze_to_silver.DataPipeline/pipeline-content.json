@@ -1,0 +1,101 @@
+{
+  "properties": {
+    "activities": [
+      {
+        "type": "TridentNotebook",
+        "typeProperties": {
+          "notebookId": "f68591e5-e186-94f8-4205-e5ff6353aeae",
+          "workspaceId": "00000000-0000-0000-0000-000000000000"
+        },
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureInput": false,
+          "secureOutput": false
+        },
+        "name": "Notebooksilver",
+        "dependsOn": []
+      },
+      {
+        "type": "TridentNotebook",
+        "typeProperties": {
+          "notebookId": "e442a0c1-da62-beb8-4b85-bad538dbf02d",
+          "workspaceId": "00000000-0000-0000-0000-000000000000"
+        },
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureInput": false,
+          "secureOutput": false
+        },
+        "name": "Notebookold",
+        "dependsOn": [
+          {
+            "activity": "Notebooksilver",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "MicrosoftTeams",
+        "typeProperties": {
+          "content": "<p>⚠️ ALERT: Pipeline_bronze_to_silver FAILED. Silver notebook did not complete, so gold was not triggered. Please check the Fabric run history.</p>\n<p><br></p>",
+          "teamId": "ab680841-535d-473d-891b-214151a7ad06",
+          "channelId": "19:nHfhBKX3mA23DH7esNNzDG-NmfcjSP8-67rHHyzZ1Xs1@thread.tacv2",
+          "operationType": "SendMessageInChannel"
+        },
+        "externalReferences": {
+          "connection": "7153741a-1a57-4411-bda7-01e61276c070"
+        },
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureInput": false,
+          "secureOutput": false
+        },
+        "name": "MicrosoftTeams_silver",
+        "dependsOn": [
+          {
+            "activity": "Notebooksilver",
+            "dependencyConditions": [
+              "Failed"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "MicrosoftTeams",
+        "typeProperties": {
+          "content": "<p>⚠️ ALERT: Pipeline_bronze_to_silver FAILED at the gold stage. AK_Gold did not complete — the semantic model and report are stale. Please check the Fabric run history.</p>\n<p><br></p>",
+          "teamId": "ab680841-535d-473d-891b-214151a7ad06",
+          "channelId": "19:nHfhBKX3mA23DH7esNNzDG-NmfcjSP8-67rHHyzZ1Xs1@thread.tacv2",
+          "operationType": "SendMessageInChannel"
+        },
+        "externalReferences": {
+          "connection": "7153741a-1a57-4411-bda7-01e61276c070"
+        },
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureInput": false,
+          "secureOutput": false
+        },
+        "name": "MicrosoftTeams_gold",
+        "dependsOn": [
+          {
+            "activity": "Notebookold",
+            "dependencyConditions": [
+              "Failed"
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

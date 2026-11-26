@@ -10,7 +10,7 @@
               "type": "DelimitedTextReadSettings"
             },
             "storeSettings": {
-              "type": "LakehouseReadSettings",
+              "type": "AzureBlobStorageReadSettings",
               "recursive": true,
               "enablePartitionDiscovery": false
             },
@@ -99,7 +99,7 @@
               "type": "DelimitedTextReadSettings"
             },
             "storeSettings": {
-              "type": "LakehouseReadSettings",
+              "type": "AzureBlobStorageReadSettings",
               "recursive": true,
               "enablePartitionDiscovery": false
             },
