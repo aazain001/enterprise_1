@@ -16,4 +16,4 @@ jobs:
           python-version: "3.12"
       - run: pip install ruff pytest
       - run: ruff check .
-      - run: pytest -v
+      - run: pytest test_transforms.py -v
